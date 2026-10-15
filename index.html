@@ -171,6 +171,7 @@
     .name-input::placeholder { color: #89938b; }
     .name-input:focus { outline: 3px solid #c7ddcd; outline-offset: 1px; border-color: var(--green); }
     .name-input[aria-invalid="true"] { border-color: var(--red); }
+    .name-input:disabled { background: var(--green-light); color: var(--green); opacity: 1; -webkit-text-fill-color: var(--green); }
     .name-help, .name-error { margin-top: 7px; font-size: 12px; }
     .name-help { color: var(--muted); }
     .name-error { color: var(--red); }
@@ -431,6 +432,11 @@
         </ul>
         <form id="startForm" novalidate>
           <div class="name-field">
+            <label class="name-label" for="companySelect">所属单位<span class="required-label">必填</span></label>
+            <select class="name-input" id="companySelect" name="companyCode" aria-describedby="companyHelp nameError" required><option value="">请选择所属单位</option></select>
+            <p class="name-help" id="companyHelp">请核对所属单位后开始考试。</p>
+          </div>
+          <div class="name-field">
             <label class="name-label" for="studentName">姓名<span class="required-label">必填</span></label>
             <input class="name-input" id="studentName" name="studentName" type="text" autocomplete="name" enterkeyhint="go" maxlength="40" placeholder="请输入你的姓名" aria-describedby="nameHelp nameError" required>
             <p class="name-help" id="nameHelp">请填写真实姓名，姓名和考试成绩将保存到成绩管理后台。</p>
@@ -446,14 +452,14 @@
 
     <section id="exam" aria-label="试卷" hidden>
       <div class="exam-heading" id="examHeading">
-        <div><p class="eyebrow">答题中</p><h1 id="examTitle" tabindex="-1">天府公司四季度抢收行动之小微ICT劳动竞赛知识测试</h1><p class="candidate-line" id="examCandidate"></p><p>每题 5 分，请为每道题选择一个答案。</p></div>
+        <div><p class="eyebrow">答题中</p><h1 id="examTitle" tabindex="-1">天府公司四季度抢收行动之小微ICT劳动竞赛知识测试</h1><p class="candidate-line" id="examCompany"></p><p class="candidate-line" id="examCandidate"></p><p>每题 5 分，请为每道题选择一个答案。</p></div>
         <span class="question-type">单项选择 / 20 题</span>
       </div>
       <div class="demo-notice demo-only" id="examDemo"><span class="demo-tag">示例题库</span><span>以下为演示题目，用于体验答题和评分。</span></div>
 
       <section class="result-panel" id="resultPanel" aria-labelledby="resultTitle" hidden>
         <div class="result-top">
-          <div><p class="eyebrow">考试结果</p><h1 id="resultTitle" tabindex="-1">答题已完成</h1><p class="candidate-line" id="resultCandidate"></p><p class="result-message" id="resultMessage"></p></div>
+          <div><p class="eyebrow">考试结果</p><h1 id="resultTitle" tabindex="-1">答题已完成</h1><p class="candidate-line" id="resultCompany"></p><p class="candidate-line" id="resultCandidate"></p><p class="result-message" id="resultMessage"></p></div>
           <div><div class="score"><span class="score-value" id="score">0</span><span class="score-unit">分</span></div><p class="score-total">满分 100 分</p></div>
         </div>
         <div class="result-stats">
@@ -513,6 +519,13 @@
       isDemo: false,
       durationMinutes: 30
     };
+
+    const COMPANIES = [
+      { code: "shuangliu", name: "双流分公司" },
+      { code: "zhiguan", name: "直管分公司" },
+      { code: "longquan", name: "龙泉分公司" },
+      { code: "jituan", name: "集团客户部" }
+    ];
 
     const QUESTIONS = [
       {
@@ -743,6 +756,9 @@
       const DURATION_MS = EXAM_CONFIG.durationMinutes * 60 * 1000;
       const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
       const byId = function (id) { return document.getElementById(id); };
+      const companyFromLink = new URLSearchParams(window.location.search).get("company") || "";
+      function findCompany(code) { return COMPANIES.find(function (company) { return company.code === code; }); }
+      function companyLabel() { return state.companyName || (findCompany(state.companyCode) || {}).name || "未分类（历史记录）"; }
       let state = null;
       let intervalId = null;
       let lastAnnouncedMinute = null;
@@ -797,6 +813,8 @@
           state.answers = saved.answers;
           state.submittedAt = saved.submittedAt;
           state.reason = saved.reason;
+          state.companyCode = saved.companyCode;
+          state.companyName = saved.companyName;
           state.uploaded = true;
           saveState();
           showResults(false);
@@ -815,7 +833,7 @@
         hash ^= signature.charCodeAt(i);
         hash = Math.imul(hash, 16777619);
       }
-      const STORAGE_KEY = "single-file-exam:" + EXAM_CONFIG.id + ":" + (hash >>> 0).toString(16);
+      const STORAGE_KEY = "single-file-exam:" + EXAM_CONFIG.id + ":" + (hash >>> 0).toString(16) + (companyFromLink ? ":" + companyFromLink : "");
 
       function validateQuestions() {
         if (QUESTIONS.length !== 20) throw new Error("题库需要正好包含 20 道单选题，请检查 QUESTIONS 配置。");
@@ -842,6 +860,8 @@
           if (!saved || !Number.isFinite(saved.startedAt) || !Number.isFinite(saved.deadline) || saved.startedAt <= 0 || saved.deadline !== saved.startedAt + DURATION_MS || !Array.isArray(saved.answers) || saved.answers.length !== QUESTIONS.length) return null;
           if (typeof saved.studentName !== "string" || !saved.studentName.trim() || saved.studentName.length > 40) return null;
           if (EXAM_CONFIG.requireOnline && (typeof saved.attemptId !== "string" || typeof saved.token !== "string" || !Number.isFinite(saved.clockOffset) || !Number.isSafeInteger(saved.sequence))) return null;
+          if (companyFromLink && saved.companyCode !== companyFromLink) return null;
+          if (saved.companyCode != null && !findCompany(saved.companyCode)) return null;
           if (!saved.answers.every(function (answer, i) { return answer === null || (typeof answer === "string" && answer.length === 1 && letters.slice(0, QUESTIONS[i].options.length).indexOf(answer) >= 0); })) return null;
           if (saved.submittedAt !== null && (!Number.isFinite(saved.submittedAt) || saved.submittedAt < saved.startedAt || saved.submittedAt > saved.deadline || ["manual", "timeout"].indexOf(saved.reason) === -1)) return null;
           if (saved.submittedAt === null && saved.reason !== null) return null;
@@ -976,6 +996,7 @@
         byId("submitBar").hidden = false;
         document.body.classList.add("in-progress");
         byId("examCandidate").textContent = "考生：" + state.studentName;
+        byId("examCompany").textContent = "所属单位：" + companyLabel();
         byId("draftStatus").textContent = state.token ? "答题进度已保存" : "";
         byId("legend").innerHTML = '<span><i class="done"></i>已答</span><span><i></i>未答</span>';
         byId("answerDetails").open = !window.matchMedia("(max-width: 760px)").matches;
@@ -995,6 +1016,7 @@
         byId("reviewHeading").hidden = false;
         document.body.classList.remove("in-progress");
         byId("resultCandidate").textContent = "考生：" + state.studentName;
+        byId("resultCompany").textContent = "所属单位：" + companyLabel();
         const correct = QUESTIONS.filter(function (_, i) { return statusFor(i) === "correct"; }).length;
         const missed = state.answers.filter(function (answer) { return answer === null; }).length;
         byId("score").textContent = String(correct * POINTS_PER_QUESTION);
@@ -1054,6 +1076,14 @@
       byId("startForm").addEventListener("submit", async function (event) {
         event.preventDefault();
         if (state || openingExam) return;
+        const company = findCompany(companyFromLink || byId("companySelect").value);
+        if (!company) {
+          byId("nameError").textContent = "请先选择所属单位，再开始考试。";
+          byId("nameError").hidden = false;
+          byId("companySelect").setAttribute("aria-invalid", "true");
+          byId("companySelect").focus();
+          return;
+        }
         const studentName = byId("studentName").value.trim().replace(/\s+/g, " ");
         if (!studentName || studentName.length > 40) {
           byId("nameError").textContent = !studentName ? "请先填写姓名，再开始考试。" : "姓名不能超过 40 个字符。";
@@ -1078,8 +1108,9 @@
             randomBytes[8] = (randomBytes[8] & 63) | 128;
             const hex = Array.from(randomBytes, function (v) { return v.toString(16).padStart(2, "0"); }).join("");
             const attemptId = [hex.slice(0, 8), hex.slice(8, 12), hex.slice(12, 16), hex.slice(16, 20), hex.slice(20)].join("-");
-            session = await api("start", { attemptId: attemptId, studentName: studentName, examVersion: EXAM_CONFIG.examVersion });
+            session = await api("start", { attemptId: attemptId, studentName: studentName, examVersion: EXAM_CONFIG.examVersion, companyCode: company.code, registrationVersion: 2 });
             if (!session.token || !Number.isFinite(session.startedAt) || session.deadline !== session.startedAt + DURATION_MS) throw new Error("试卷信息不完整");
+            if (session.companyCode !== company.code || session.companyName !== company.name) throw new Error("所属单位未确认，请稍后重试");
           } catch (error) {
             byId("nameError").textContent = "暂时无法开始考试：" + (error.message || "请检查网络后重试");
             byId("nameError").hidden = false;
@@ -1091,7 +1122,7 @@
           }
         }
         const now = session ? session.startedAt : clickedAt;
-        state = { studentName: studentName, startedAt: now, deadline: now + DURATION_MS, answers: QUESTIONS.map(function () { return null; }), submittedAt: null, reason: null, attemptId: session && session.attemptId, token: session && session.token, clockOffset: session ? session.serverNow - Date.now() : 0, sequence: 0, syncedSequence: 0, uploaded: false };
+        state = { studentName: studentName, companyCode: company.code, companyName: company.name, startedAt: now, deadline: now + DURATION_MS, answers: QUESTIONS.map(function () { return null; }), submittedAt: null, reason: null, attemptId: session && session.attemptId, token: session && session.token, clockOffset: session ? session.serverNow - Date.now() : 0, sequence: 0, syncedSequence: 0, uploaded: false };
         lastAnnouncedMinute = null;
         saveState();
         showExam();
@@ -1103,6 +1134,10 @@
       byId("studentName").addEventListener("input", function () {
         byId("nameError").hidden = true;
         byId("studentName").removeAttribute("aria-invalid");
+      });
+      byId("companySelect").addEventListener("change", function () {
+        byId("nameError").hidden = true;
+        byId("companySelect").removeAttribute("aria-invalid");
       });
 
       byId("questionForm").addEventListener("submit", function (event) { event.preventDefault(); });
@@ -1128,6 +1163,8 @@
         intervalId = null;
         state = null;
         byId("startForm").reset();
+        if (companyFromLink) byId("companySelect").value = companyFromLink;
+        byId("companySelect").removeAttribute("aria-invalid");
         byId("nameError").hidden = true;
         byId("studentName").removeAttribute("aria-invalid");
         try { sessionStorage.removeItem(STORAGE_KEY); } catch (_) { /* 无存储权限时无需清除。 */ }
@@ -1147,6 +1184,12 @@
 
       try {
         validateQuestions();
+        COMPANIES.forEach(function (company) { byId("companySelect").appendChild(new Option(company.name, company.code)); });
+        if (companyFromLink) {
+          if (!findCompany(companyFromLink)) throw new Error("考试链接中的单位标识无效，请使用所属单位提供的二维码。");
+          byId("companySelect").value = companyFromLink;
+          byId("companySelect").disabled = true;
+        }
         document.title = EXAM_CONFIG.title;
         byId("brandName").textContent = EXAM_CONFIG.brand;
         byId("introTitle").textContent = EXAM_CONFIG.title;
