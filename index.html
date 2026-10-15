@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f6f2">
+  <title>天府公司四季度抢收行动之小微ICT劳动竞赛知识测试</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #ffffff;
+      --canvas: #f5f6f2;
+      --ink: #21372c;
+      --muted: #69756d;
+      --line: #e1e7df;
+      --green: #236348;
+      --green-dark: #174d36;
+      --green-light: #edf5ef;
+      --red: #b73e3e;
+      --red-light: #fff1ef;
+      --header-height: 80px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-padding-top: calc(var(--header-height) + 24px); }
+    body {
+      margin: 0;
+      background: var(--canvas);
+      color: var(--ink);
+      font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+    }
+    button, input, summary { font: inherit; }
+    button, summary, label { touch-action: manipulation; }
+    button { cursor: pointer; }
+    button:disabled { cursor: default; }
+    button:focus-visible, summary:focus-visible, a:focus-visible {
+      outline: 3px solid #7ba88a;
+      outline-offset: 4px;
+    }
+    [hidden] { display: none !important; }
+    h1, h2, p { margin: 0; }
+    h1 { font-size: clamp(28px, 4vw, 40px); line-height: 1.35; letter-spacing: -.04em; }
+    h2 { font-size: 20px; line-height: 1.5; }
+    .muted { color: var(--muted); }
+    .topbar {
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding-top: env(safe-area-inset-top, 0px);
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      max-width: 1120px;
+      min-height: var(--header-height);
+      margin: auto;
+      padding: 12px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: var(--green);
+      color: white;
+      flex-shrink: 0;
+    }
+    .brand-name { font-size: 16px; font-weight: 700; letter-spacing: .04em; }
+    .brand-caption { font-size: 11px; letter-spacing: .12em; color: var(--muted); }
+    .clock { display: flex; align-items: center; gap: 12px; }
+    .clock-label { font-size: 12px; color: var(--muted); }
+    .clock-value {
+      min-width: 92px;
+      padding: 5px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f8faf7;
+      font-size: 25px;
+      font-weight: 700;
+      line-height: 1.4;
+      letter-spacing: .02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .clock.urgent .clock-value { color: var(--red); background: var(--red-light); border-color: #efc8c2; }
+    main {
+      max-width: 1120px;
+      margin: auto;
+      padding: calc(var(--header-height) + env(safe-area-inset-top, 0px) + 44px) 32px 48px;
+    }
+    .eyebrow { color: var(--green); font-size: 12px; letter-spacing: .12em; font-weight: 700; }
+    .intro { max-width: 760px; margin: 20px auto 0; }
+    .intro-card {
+      padding: 44px 48px 38px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--paper);
+      box-shadow: 0 12px 36px #21372c05;
+    }
+    .intro-icon {
+      display: grid;
+      place-items: center;
+      width: 64px;
+      height: 64px;
+      margin-bottom: 28px;
+      color: var(--green);
+      background: var(--green-light);
+      border: 1px solid #d9e7dc;
+      border-radius: 18px;
+    }
+    .intro h1 { margin-top: 8px; }
+    .intro-description { margin-top: 14px; color: var(--muted); }
+    .exam-facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 28px 0;
+      margin: 28px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .fact + .fact { border-left: 1px solid var(--line); padding-left: 28px; }
+    .fact-value { display: block; font-size: 30px; line-height: 1.3; font-weight: 650; font-variant-numeric: tabular-nums; }
+    .fact-value small { margin-left: 4px; font-size: 13px; font-weight: 400; }
+    .fact-label { display: block; margin-top: 7px; color: var(--muted); font-size: 13px; }
+    .rules { margin: 0 0 26px; padding-left: 20px; color: #526156; font-size: 14px; }
+    .rules li + li { margin-top: 8px; }
+    .button {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 26px;
+      border: 1px solid var(--green);
+      border-radius: 12px;
+      color: white;
+      background: var(--green);
+      font-weight: 650;
+      line-height: 1.5;
+    }
+    .button:hover { background: var(--green-dark); }
+    .button:active { transform: translateY(1px); }
+    .button.secondary { color: var(--green); background: white; border-color: #c9d9ce; }
+    .button.secondary:hover { background: var(--green-light); }
+    .start-button { width: 100%; }
+    .intro-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 12px; }
+    .name-field { margin: 0 0 20px; }
+    .name-label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+    .required-label { margin-left: 6px; color: var(--muted); font-size: 12px; font-weight: 400; }
+    .name-input {
+      display: block;
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 14px;
+      border: 1px solid #cbd7cd;
+      border-radius: 10px;
+      background: white;
+      color: var(--ink);
+      font: inherit;
+      font-size: 16px;
+    }
+    .name-input::placeholder { color: #89938b; }
+    .name-input:focus { outline: 3px solid #c7ddcd; outline-offset: 1px; border-color: var(--green); }
+    .name-input[aria-invalid="true"] { border-color: var(--red); }
+    .name-help, .name-error { margin-top: 7px; font-size: 12px; }
+    .name-help { color: var(--muted); }
+    .name-error { color: var(--red); }
+    .sync-note { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+    .sync-note.failed { color: var(--red); }
+    .sync-note .button { min-height: 40px; padding: 7px 14px; margin-top: 10px; font-size: 13px; }
+    .button:disabled { opacity: .5; }
+    .candidate-line { margin-top: 8px; color: var(--green); font-size: 14px; overflow-wrap: anywhere; }
+    .exam-heading .candidate-line { color: var(--green); }
+    .demo-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 14px 18px;
+      margin: 20px 0;
+      border-radius: 12px;
+      border: 1px solid #e8dfbf;
+      background: #fbf7e9;
+      color: #7a652b;
+      font-size: 13px;
+    }
+    .demo-tag { flex-shrink: 0; padding: 0 6px; border: 1px solid #d7c894; border-radius: 4px; font-size: 11px; }
+    .page-foot { margin-top: 24px; text-align: center; font-size: 12px; color: var(--muted); }
+    .exam-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+    .exam-heading h1 { font-size: 28px; margin: 6px 0 8px; }
+    .exam-heading p { color: var(--muted); font-size: 14px; }
+    .question-type { padding: 5px 12px; border: 1px solid #d5dfd5; border-radius: 30px; font-size: 12px; color: var(--green); white-space: nowrap; }
+    .exam-layout { display: grid; grid-template-columns: minmax(0, 1fr) 248px; gap: 24px; align-items: start; }
+    .question-list { display: grid; gap: 20px; min-width: 0; }
+    .question {
+      min-width: 0;
+      margin: 0;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper);
+      scroll-margin-top: calc(var(--header-height) + env(safe-area-inset-top, 0px) + 20px);
+    }
+    .question:focus { outline: 3px solid #9ab9a4; outline-offset: 3px; }
+    .question-meta { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 12px; color: var(--muted); }
+    .question-number { color: var(--green); font-weight: 700; letter-spacing: .04em; }
+    .question-title { font-size: 17px; font-weight: 650; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .options { margin-top: 20px; display: grid; gap: 10px; }
+    .option {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 56px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      cursor: pointer;
+      background: #fdfefc;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+    .option:hover { border-color: #9cbaa6; }
+    .option input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .option:focus-within { outline: 3px solid #9ab9a4; outline-offset: 2px; }
+    .letter {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
+      border: 1px solid #ced8cf;
+      border-radius: 50%;
+      color: #657268;
+      background: white;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .option-text { flex: 1; min-width: 0; white-space: pre-wrap; }
+    .option.selected, .option.correct { background: var(--green-light); border-color: #71a184; }
+    .option.selected .letter, .option.correct .letter { color: white; background: var(--green); border-color: var(--green); }
+    .option.incorrect { background: var(--red-light); border-color: #dfa8a0; }
+    .option.incorrect .letter { color: white; background: var(--red); border-color: var(--red); }
+    .option.review { cursor: default; }
+    .option-badge { font-size: 11px; font-weight: 600; color: var(--green); white-space: nowrap; }
+    .option.incorrect .option-badge { color: var(--red); }
+    .review-note { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .review-note strong { color: var(--ink); font-weight: 600; }
+    .review-note p + p { margin-top: 7px; }
+    .result-status { font-size: 12px; padding: 2px 8px; border-radius: 5px; color: var(--green); background: var(--green-light); }
+    .result-status.wrong { color: var(--red); background: var(--red-light); }
+    .result-status.missed { color: #77672e; background: #faf4df; }
+    .answer-card {
+      position: sticky;
+      top: calc(var(--header-height) + env(safe-area-inset-top, 0px) + 24px);
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper);
+    }
+    .answer-card summary { cursor: pointer; list-style: none; font-weight: 650; font-size: 15px; }
+    .answer-card summary::-webkit-details-marker { display: none; }
+    .summary-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .summary-count { color: var(--muted); font-size: 12px; font-weight: 400; }
+    .summary-chevron { display: inline-block; margin-left: 5px; transform: rotate(0deg); }
+    details[open] .summary-chevron { transform: rotate(180deg); }
+    .progress-track { height: 5px; margin-top: 18px; background: #edf0e9; border-radius: 5px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0; background: var(--green); transition: width .15s; }
+    .answer-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-top: 20px; }
+    .number-button {
+      min-width: 0;
+      min-height: 40px;
+      padding: 5px 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      color: var(--muted);
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+    .number-button:hover { border-color: #7ba88a; }
+    .number-button.answered, .number-button.correct { background: var(--green-light); color: var(--green); border-color: #8daf98; }
+    .number-button.wrong { background: var(--red-light); color: var(--red); border-color: #dfa8a0; }
+    .number-button.missed { background: #faf4df; color: #77672e; border-color: #dfd1a7; }
+    .legend { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-top: 18px; color: var(--muted); font-size: 11px; }
+    .legend span { display: inline-flex; align-items: center; gap: 5px; }
+    .legend i { width: 9px; height: 9px; border: 1px solid #cad4ca; border-radius: 3px; }
+    .legend .done { background: #d9eadd; border-color: #8daf98; }
+    .legend .wrong { background: #f6d9d4; border-color: #dfa8a0; }
+    .legend .missed { background: #f4e9bd; border-color: #dfd1a7; }
+    .answer-tip { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .submit-bar {
+      position: fixed;
+      z-index: 15;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-top: 1px solid var(--line);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      background: white;
+    }
+    .submit-inner { max-width: 1120px; margin: auto; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .submit-count { font-size: 14px; }
+    .submit-count strong { color: var(--green); font-size: 18px; }
+    .submit-hint { margin-top: 2px; color: var(--muted); font-size: 12px; }
+    body.in-progress main { padding-bottom: calc(140px + env(safe-area-inset-bottom, 0px)); }
+    .result-panel { padding: 32px; margin-bottom: 30px; border: 1px solid #cbdcce; border-radius: 20px; background: var(--paper); }
+    .result-top { display: flex; justify-content: space-between; align-items: center; gap: 28px; }
+    .result-panel h1 { font-size: 28px; margin: 7px 0 8px; }
+    .result-message { color: var(--muted); font-size: 14px; }
+    .score { color: var(--green); white-space: nowrap; line-height: 1.15; }
+    .score-value { font-size: 64px; font-weight: 700; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
+    .score-unit { margin-left: 8px; font-size: 16px; }
+    .score-total { margin-top: 6px; text-align: right; font-size: 12px; color: var(--muted); }
+    .result-stats { display: grid; grid-template-columns: repeat(4, 1fr); padding-top: 24px; margin-top: 24px; border-top: 1px solid var(--line); }
+    .result-stat { display: flex; flex-direction: column; gap: 4px; color: var(--muted); font-size: 12px; }
+    .result-stat strong { font-size: 22px; font-weight: 650; color: var(--ink); font-variant-numeric: tabular-nums; }
+    .result-stat + .result-stat { padding-left: 24px; border-left: 1px solid var(--line); }
+    .review-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+    .review-heading p { color: var(--muted); font-size: 13px; margin-top: 3px; }
+    .review-heading .button { min-height: 44px; font-size: 13px; padding: 9px 18px; flex-shrink: 0; }
+    .error { padding: 24px; border: 1px solid #dfa8a0; border-radius: 12px; color: var(--red); background: white; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    @media (max-width: 760px) {
+      :root { --header-height: 68px; }
+      .topbar-inner { padding: 10px 18px; }
+      .brand { gap: 9px; }
+      .brand-mark { width: 34px; height: 34px; border-radius: 10px; }
+      .brand-name { font-size: 14px; }
+      .brand-caption { font-size: 9px; }
+      .clock { gap: 8px; }
+      .clock-label { font-size: 10px; }
+      .clock-value { font-size: 22px; min-width: 80px; padding: 4px 8px; }
+      main { padding: calc(var(--header-height) + env(safe-area-inset-top, 0px) + 24px) 18px 32px; }
+      .intro { margin-top: 8px; }
+      .intro-card { padding: 28px 24px; border-radius: 20px; }
+      .intro-icon { margin-bottom: 22px; width: 56px; height: 56px; border-radius: 16px; }
+      .intro-description { font-size: 14px; }
+      .exam-facts { margin: 24px 0; padding: 22px 0; gap: 8px; }
+      .fact + .fact { padding-left: 16px; }
+      .fact-value { font-size: 27px; }
+      .fact-label { font-size: 12px; }
+      .demo-notice { padding: 12px 14px; font-size: 12px; }
+      .exam-heading { margin-bottom: 18px; gap: 12px; }
+      .exam-heading h1 { font-size: 24px; }
+      .exam-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+      .answer-card { order: -1; position: static; padding: 16px 18px; border-radius: 14px; }
+      .answer-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
+      .number-button { min-height: 44px; font-size: 14px; }
+      .answer-tip { margin-top: 14px; padding-top: 12px; }
+      .question-list { gap: 16px; }
+      .question { padding: 20px 18px; border-radius: 16px; }
+      .question-title { font-size: 16px; }
+      .options { margin-top: 17px; }
+      .option { padding: 12px; gap: 10px; min-height: 56px; font-size: 15px; }
+      .option-badge { font-size: 10px; }
+      .submit-inner { padding: 12px 18px; gap: 12px; }
+      .submit-inner .button { min-width: 124px; }
+      .submit-hint { font-size: 11px; }
+      .result-panel { padding: 24px 20px; margin-bottom: 24px; }
+      .result-top { gap: 14px; align-items: flex-start; }
+      .result-panel h1 { font-size: 24px; }
+      .score-value { font-size: 48px; }
+      .score-unit { margin-left: 3px; font-size: 13px; }
+      .result-message { font-size: 13px; }
+      .result-stats { padding-top: 20px; margin-top: 20px; }
+      .result-stat strong { font-size: 19px; }
+      .result-stat + .result-stat { padding-left: 12px; }
+      .review-heading h2 { font-size: 18px; }
+    }
+    @media (max-width: 350px) {
+      .brand-caption { display: none; }
+      .clock { flex-direction: column; gap: 0; }
+      .clock-value { font-size: 18px; padding: 1px 8px; min-width: 72px; }
+      .intro-card { padding: 24px 18px; }
+      .fact + .fact { padding-left: 10px; }
+      .fact-value { font-size: 24px; }
+      .question-type { display: none; }
+      .result-top { flex-direction: column; }
+      .score-total { text-align: left; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M4 5.5c3-1 5.5-.5 8 1.5 2.5-2 5-2.5 8-1.5v14c-3-1-5.5-.5-8 1.5-2.5-2-5-2.5-8-1.5v-14Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 7v14" stroke="currentColor" stroke-width="1.6"/></svg>
+        </div>
+        <div><div class="brand-name" id="brandName">天府公司</div><div class="brand-caption">四季度抢收行动 · 小微 ICT</div></div>
+      </div>
+      <div class="clock" id="clock">
+        <span class="clock-label">剩余时间</span>
+        <div class="clock-value" id="timer" role="timer" aria-label="剩余时间 30 分钟" aria-live="off">30:00</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <noscript><p class="error">此页面需要启用 JavaScript 才能答题和计时，请在浏览器中启用后重新打开。</p></noscript>
+    <div class="error" id="errorBox" role="alert" hidden></div>
+
+    <section class="intro" id="intro" aria-labelledby="introTitle">
+      <div class="intro-card">
+        <div class="intro-icon" aria-hidden="true">
+          <svg width="31" height="31" viewBox="0 0 32 32" fill="none"><rect x="7" y="5" width="20" height="24" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="M12 5V3m10 2V3M12 13h10m-10 5h10m-10 5h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </div>
+        <h1 id="introTitle">天府公司四季度抢收行动之小微ICT劳动竞赛知识测试</h1>
+        <p class="intro-description">请先填写姓名，再点击“开始考试”。</p>
+        <div class="exam-facts">
+          <div class="fact"><span class="fact-value">20<small>题</small></span><span class="fact-label">全部为单选题</span></div>
+          <div class="fact"><span class="fact-value">30<small>分钟</small></span><span class="fact-label">考试时长</span></div>
+          <div class="fact"><span class="fact-value">100<small>分</small></span><span class="fact-label">每题 5 分</span></div>
+        </div>
+        <ul class="rules">
+          <li>点击“开始考试”后计时，每道题只能选择一个答案。</li>
+          <li>可以随时提交；时间用完后自动提交，未答题得 0 分。</li>
+          <li>提交后立即显示得分及每道题的正确答案。</li>
+        </ul>
+        <form id="startForm" novalidate>
+          <div class="name-field">
+            <label class="name-label" for="studentName">姓名<span class="required-label">必填</span></label>
+            <input class="name-input" id="studentName" name="studentName" type="text" autocomplete="name" enterkeyhint="go" maxlength="40" placeholder="请输入你的姓名" aria-describedby="nameHelp nameError" required>
+            <p class="name-help" id="nameHelp">请填写真实姓名，姓名和考试成绩将保存到成绩管理后台。</p>
+            <p class="name-error" id="nameError" role="alert" hidden></p>
+          </div>
+          <button class="button start-button" id="startButton" type="submit">开始考试 <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="intro-note">考试开始前不计时</p>
+      </div>
+      <div class="demo-notice demo-only"><span class="demo-tag">示例题库</span><span>当前包含 20 道示例题，正式使用前请替换为你的题目。</span></div>
+      <p class="page-foot">天府公司四季度抢收行动之小微ICT劳动竞赛知识测试</p>
+    </section>
+
+    <section id="exam" aria-label="试卷" hidden>
+      <div class="exam-heading" id="examHeading">
+        <div><p class="eyebrow">答题中</p><h1 id="examTitle" tabindex="-1">天府公司四季度抢收行动之小微ICT劳动竞赛知识测试</h1><p class="candidate-line" id="examCandidate"></p><p>每题 5 分，请为每道题选择一个答案。</p></div>
+        <span class="question-type">单项选择 / 20 题</span>
+      </div>
+      <div class="demo-notice demo-only" id="examDemo"><span class="demo-tag">示例题库</span><span>以下为演示题目，用于体验答题和评分。</span></div>
+
+      <section class="result-panel" id="resultPanel" aria-labelledby="resultTitle" hidden>
+        <div class="result-top">
+          <div><p class="eyebrow">考试结果</p><h1 id="resultTitle" tabindex="-1">答题已完成</h1><p class="candidate-line" id="resultCandidate"></p><p class="result-message" id="resultMessage"></p></div>
+          <div><div class="score"><span class="score-value" id="score">0</span><span class="score-unit">分</span></div><p class="score-total">满分 100 分</p></div>
+        </div>
+        <div class="result-stats">
+          <div class="result-stat"><span>答对</span><strong id="correctCount">0 题</strong></div>
+          <div class="result-stat"><span>答错</span><strong id="wrongCount">0 题</strong></div>
+          <div class="result-stat"><span>未答</span><strong id="missedCount">0 题</strong></div>
+          <div class="result-stat"><span>用时</span><strong id="elapsedTime">00:00</strong></div>
+        </div>
+        <div class="sync-note" id="syncNote" role="status"><p id="syncMessage"></p><button class="button secondary" id="retryUploadButton" type="button" hidden>重新上传成绩</button></div>
+      </section>
+      <div class="review-heading" id="reviewHeading" hidden>
+        <div><h2>答案与解析</h2><p>绿色标记为正确答案。</p></div>
+        <button class="button secondary" id="retryButton" type="button">重新测试</button>
+      </div>
+
+      <div class="exam-layout">
+        <form class="question-list" id="questionForm" aria-label="单选题" novalidate></form>
+        <aside class="answer-card" aria-label="答题进度与题号导航">
+          <details id="answerDetails" open>
+            <summary><span class="summary-row"><span>答题卡</span><span class="summary-count"><span id="answeredCount">0 / 20</span><span class="summary-chevron" aria-hidden="true">⌄</span></span></span></summary>
+            <div class="progress-track" role="progressbar" id="progress" aria-label="答题进度" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
+            <nav class="answer-grid" id="answerGrid" aria-label="跳转到题目"></nav>
+            <div class="legend" id="legend"><span><i class="done"></i>已答</span><span><i></i>未答</span></div>
+            <p class="answer-tip">点击题号可跳转到对应题目。</p>
+          </details>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="submit-bar" id="submitBar" hidden>
+    <div class="submit-inner">
+      <div><p class="submit-count">已答 <strong id="footerCount">0</strong> / 20 题</p><p class="submit-hint" id="submitHint">还有 20 题未答，未答题得 0 分</p><p class="submit-hint" id="draftStatus" role="status"></p></div>
+      <button class="button" id="submitButton" type="button">提交试卷</button>
+    </div>
+  </footer>
+  <p class="sr-only" id="announcement" role="status" aria-live="polite"></p>
+
+  <script>
+    "use strict";
+
+    /* ==================== 题库配置：在这里替换正式题目 ====================
+     * 保持 20 道题。每题 5 分，总分 100 分。
+     * title：题目；options：选项，按 A、B、C、D 的顺序填写。
+     * answer：正确选项的大写字母；explanation：可选解析，可填空字符串。
+     * 换好正式题目后，将 isDemo 改为 false，即可隐藏示例提示。
+     * 题目和选项按纯文本显示，支持换行，不需要填写 HTML 标签。
+     * 若文字包含英文双引号或反斜杠，请按 JavaScript 字符串规则转义。
+     */
+    const EXAM_CONFIG = {
+      id: "tianfu-ict-contest-2026-q4",
+      examVersion: "cd92838db3e02ff7",
+      resultsApiUrl: "https://ict-contest-results-20261015.tjspgm2dzk.chatgpt.site/api/exam",
+      requireOnline: true,
+      title: "天府公司四季度抢收行动之小微ICT劳动竞赛知识测试",
+      brand: "天府公司",
+      isDemo: false,
+      durationMinutes: 30
+    };
+
+    const QUESTIONS = [
+      {
+        "title": "本次抢收行动小微ICT劳动竞赛的时间是哪个区间？",
+        "options": [
+          "2026年9月1日至11月30日",
+          "2026年10月1日至12月20日",
+          "2026年10月1日至12月31日",
+          "2026年9月19日至12月20日"
+        ],
+        "answer": "B",
+        "explanation": ""
+      },
+      {
+        "title": "项目纳入本次竞赛统计，签约时间和落收时间应满足什么要求？",
+        "options": [
+          "必须签约时间在竞赛期间",
+          "必须落收时间在竞赛期间",
+          "签约和落收时间均需在竞赛期间",
+          "任意一项在竞赛期间"
+        ],
+        "answer": "C",
+        "explanation": ""
+      },
+      {
+        "title": "普通小微ICT项目纳入竞赛统计，需要同时满足哪组条件？",
+        "options": [
+          "有效签约金额≤45万元，且0＜IT服务收入≤45万元",
+          "有效签约金额≤45万元，IT服务收入可以为0",
+          "有效签约金额不限，只要IT服务收入大于0",
+          "任意项目，合同总金额≤45万元即可"
+        ],
+        "answer": "A",
+        "explanation": ""
+      },
+      {
+        "title": "竞赛统计中，关于IT服务和设备销售金额，哪项说法正确？",
+        "options": [
+          "有效签约金额包含设备销售；智改数转、高校信息化按全部合同金额统计",
+          "有效签约金额只含设备销售；智改数转、高校信息化只计硬件部分",
+          "有效签约金额不含设备销售；智改数转、高校信息化按全部合同金额统计",
+          "有效签约金额不含设备销售；智改数转、高校信息化仅计IT部分"
+        ],
+        "answer": "D",
+        "explanation": ""
+      },
+      {
+        "title": "本次竞赛三个月的一线录收激励全市金额上限分别是多少？",
+        "options": [
+          "10月40万、11月30万、12月30万",
+          "10月30万、11月30万、12月40万",
+          "10月30万、11月40万、12月30万",
+          "10月30万、11月30万、12月30万"
+        ],
+        "answer": "C",
+        "explanation": ""
+      },
+      {
+        "title": "本次竞赛小微ICT的四大主推场景是什么？",
+        "options": [
+          "智慧照明、机房建维、安防监控、数通组网",
+          "智慧园区、智慧门店、智改数转、专线延伸",
+          "智慧照明、智慧门店、专线延伸、数通组网",
+          "智慧园区、智慧照明、安防监控、机房建维"
+        ],
+        "answer": "A",
+        "explanation": ""
+      },
+      {
+        "title": "商客直销团队重点拓展的场景有哪些？",
+        "options": [
+          "智慧酒店、智慧门禁、智能实训、智慧校园",
+          "校园安防、智慧消防、音视频会议、高校机房升级",
+          "智改数转、高校信息化、专线延伸服务包、产线设备销售",
+          "机房运维/售后运维、数通组网、安防监控、智慧酒店"
+        ],
+        "answer": "D",
+        "explanation": ""
+      },
+      {
+        "title": "本次竞赛针对一线员工录收激励总额是多少？",
+        "options": [
+          "10万元",
+          "90万元",
+          "100万元",
+          "110万元"
+        ],
+        "answer": "C",
+        "explanation": ""
+      },
+      {
+        "title": "符合条件的非自主集成（即专业公司实施）项目，录收激励按IT服务金额的哪个比例测算？",
+        "options": [
+          "3%",
+          "5%",
+          "8%",
+          "6%"
+        ],
+        "answer": "D",
+        "explanation": ""
+      },
+      {
+        "title": "符合竞赛激励条件的自主集成（即专业公司实施）项目，录收激励比例是多少？",
+        "options": [
+          "6%",
+          "8%",
+          "10%",
+          "12%"
+        ],
+        "answer": "B",
+        "explanation": ""
+      },
+      {
+        "title": "符合竞赛激励条件的专线延伸服务包，录收激励比例是多少？",
+        "options": [
+          "6%",
+          "8%",
+          "10%",
+          "12%"
+        ],
+        "answer": "A",
+        "explanation": ""
+      },
+      {
+        "title": "自有人员的本次竞赛录收激励，按哪个周期发放？",
+        "options": [
+          "录收当月",
+          "每季度结束后",
+          "T+1月，即录收次月",
+          "竞赛结束后一次性发放"
+        ],
+        "answer": "C",
+        "explanation": ""
+      },
+      {
+        "title": "区县二次分配录收激励时，承担客户经理角色的员工分配比例不得低于多少？",
+        "options": [
+          "50%",
+          "80%",
+          "60%",
+          "70%"
+        ],
+        "answer": "D",
+        "explanation": ""
+      },
+      {
+        "title": "某智改数转项目符合统计口径，IT部分落收60万元，激励测算基数和落收任务分别按多少金额计算？",
+        "options": [
+          "激励按45万元，任务按45万元",
+          "激励按45万元，任务按60万元",
+          "激励按60万元，任务按45万元",
+          "激励按60万元，任务按60万元"
+        ],
+        "answer": "B",
+        "explanation": ""
+      },
+      {
+        "title": "以下哪类业务不纳入本次竞赛激励？",
+        "options": [
+          "存量续签业务",
+          "符合条件的智改数转新增项目",
+          "符合条件的专线延伸服务包",
+          "符合条件的自主集成小微ICT项目"
+        ],
+        "answer": "A",
+        "explanation": ""
+      },
+      {
+        "title": "本次竞赛期间某区县成功签约并录收某工业企业智改数转项目（铁通公司全量自主实施的综合布线+安防监控）50万元，此项目团队能获得市公司竞赛激励和任务完成分别算多少？",
+        "options": [
+          "30000元、45万元",
+          "40000元、50万元",
+          "36000元、50万元",
+          "40000元、45万元"
+        ],
+        "answer": "B",
+        "explanation": ""
+      },
+      {
+        "title": "一线了解到商机后以下哪种甩单做法正确？",
+        "options": [
+          "整理详细信息，通过要求的格式邮件报送区县集客中心，一天内响应支撑",
+          "通过指南针系统填报商机信息甩单寻求支撑",
+          "在区县线上支撑群进行甩单，铁通公司支撑人员30分钟内接单支撑",
+          "电话联系集客中心总监，随时响应支撑"
+        ],
+        "answer": "C",
+        "explanation": ""
+      },
+      {
+        "title": "竞赛中，小微ICT可具体享受哪些激励？",
+        "options": [
+          "按照录收金额最高8%激励、市公司产品大单激励",
+          "按照录收金额最高8%激励、省公司获取分享激励、铁通公司超额利润部分二次激励",
+          "省公司获取分享激励、市公司揭榜挂帅激励、按照录收金额最高8%激励",
+          "按照录收金额最高8%激励、市公司产品大单激励、铁通公司超额利润部分二次激励"
+        ],
+        "answer": "B",
+        "explanation": ""
+      },
+      {
+        "title": "业务欠费超过9个月，应按照哪个比例扣回录收激励？",
+        "options": [
+          "100%",
+          "50%",
+          "70%",
+          "30%"
+        ],
+        "answer": "A",
+        "explanation": ""
+      },
+      {
+        "title": "专线延伸服务协议期内，专线业务收入不得低于专线延伸服务的哪个比例？",
+        "options": [
+          "5%",
+          "8%",
+          "10%",
+          "15%"
+        ],
+        "answer": "C",
+        "explanation": ""
+      }
+    ];
+    /* ==================== 题库配置结束 ==================== */
+
+    (function () {
+      const POINTS_PER_QUESTION = 5;
+      const DURATION_MS = EXAM_CONFIG.durationMinutes * 60 * 1000;
+      const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const byId = function (id) { return document.getElementById(id); };
+      let state = null;
+      let intervalId = null;
+      let lastAnnouncedMinute = null;
+      let draftSending = false;
+      let uploadSending = false;
+      let openingExam = false;
+      function examNow() { return Date.now() + (state && state.clockOffset || 0); }
+      async function api(action, body) {
+        const controller = new AbortController();
+        const timeout = window.setTimeout(function () { controller.abort(); }, 15000);
+        try {
+          const response = await fetch(EXAM_CONFIG.resultsApiUrl + "/" + action, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal: controller.signal, credentials: "omit" });
+          const result = await response.json();
+          if (!response.ok) throw new Error(result.error || "成绩服务暂时不可用");
+          return result;
+        } finally { window.clearTimeout(timeout); }
+      }
+      function payload() { return { attemptId: state.attemptId, token: state.token, sequence: state.sequence, answers: state.answers.slice() }; }
+      async function syncDraft() {
+        if (!state || !state.token || state.submittedAt !== null || draftSending || state.syncedSequence === state.sequence) return;
+        const current = state;
+        const data = payload();
+        draftSending = true;
+        byId("draftStatus").textContent = "正在保存答题进度…";
+        try {
+          const saved = await api("progress", data);
+          if (state !== current || state.submittedAt !== null) return;
+          if (saved.expired) { checkDeadline(); return; }
+          state.syncedSequence = data.sequence;
+          saveState();
+          byId("draftStatus").textContent = "答题进度已保存";
+        } catch (_) {
+          if (state === current && state.submittedAt === null) byId("draftStatus").textContent = "网络不稳定，进度尚未保存，正在重试";
+        } finally {
+          draftSending = false;
+          if (state === current && state.submittedAt === null && state.sequence !== state.syncedSequence) window.setTimeout(syncDraft, 2000);
+        }
+      }
+      async function uploadResult() {
+        if (!state || state.submittedAt === null || state.uploaded || uploadSending) return;
+        const current = state;
+        if (!state.token) return;
+        uploadSending = true;
+        byId("syncNote").classList.remove("failed");
+        byId("syncMessage").textContent = "正在上传成绩，请保持页面打开。";
+        byId("retryUploadButton").hidden = true;
+        byId("retryButton").disabled = true;
+        try {
+          const saved = await api("submit", payload());
+          if (state !== current) return;
+          if (!saved.saved || !Array.isArray(saved.answers) || saved.answers.length !== QUESTIONS.length) throw new Error("成绩尚未确认保存");
+          state.answers = saved.answers;
+          state.submittedAt = saved.submittedAt;
+          state.reason = saved.reason;
+          state.uploaded = true;
+          saveState();
+          showResults(false);
+        } catch (_) {
+          if (state !== current) return;
+          byId("syncNote").classList.add("failed");
+          byId("syncMessage").textContent = "成绩尚未上传成功。请保持本页面，联网后点击下方按钮重试。";
+          byId("retryUploadButton").hidden = false;
+        } finally { uploadSending = false; }
+      }
+
+      // 题库变化后使用新的存储键，避免把旧试卷的答案套到新题目上。
+      const signature = JSON.stringify([EXAM_CONFIG, QUESTIONS]);
+      let hash = 2166136261;
+      for (let i = 0; i < signature.length; i++) {
+        hash ^= signature.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+      }
+      const STORAGE_KEY = "single-file-exam:" + EXAM_CONFIG.id + ":" + (hash >>> 0).toString(16);
+
+      function validateQuestions() {
+        if (QUESTIONS.length !== 20) throw new Error("题库需要正好包含 20 道单选题，请检查 QUESTIONS 配置。");
+        if (EXAM_CONFIG.durationMinutes !== 30) throw new Error("本试卷的考试时长应为 30 分钟。");
+        QUESTIONS.forEach(function (q, index) {
+          if (!q || typeof q.title !== "string" || !q.title.trim() || !Array.isArray(q.options) || q.options.length < 2 || q.options.length > 6 || q.options.some(function (value) { return typeof value !== "string" || !value.trim(); }) || typeof q.answer !== "string" || q.answer.length !== 1 || letters.slice(0, q.options.length).indexOf(q.answer) === -1 || (q.explanation !== undefined && typeof q.explanation !== "string")) {
+            throw new Error("第 " + (index + 1) + " 题配置有误，请检查题目、选项、正确答案和解析。");
+          }
+        });
+      }
+
+      function formatTime(milliseconds) {
+        const seconds = Math.max(0, Math.ceil(milliseconds / 1000));
+        return String(Math.floor(seconds / 60)).padStart(2, "0") + ":" + String(seconds % 60).padStart(2, "0");
+      }
+
+      function saveState() {
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) { /* 存储不可用时仍可正常答题。 */ }
+      }
+
+      function loadState() {
+        try {
+          const saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+          if (!saved || !Number.isFinite(saved.startedAt) || !Number.isFinite(saved.deadline) || saved.startedAt <= 0 || saved.deadline !== saved.startedAt + DURATION_MS || !Array.isArray(saved.answers) || saved.answers.length !== QUESTIONS.length) return null;
+          if (typeof saved.studentName !== "string" || !saved.studentName.trim() || saved.studentName.length > 40) return null;
+          if (EXAM_CONFIG.requireOnline && (typeof saved.attemptId !== "string" || typeof saved.token !== "string" || !Number.isFinite(saved.clockOffset) || !Number.isSafeInteger(saved.sequence))) return null;
+          if (!saved.answers.every(function (answer, i) { return answer === null || (typeof answer === "string" && answer.length === 1 && letters.slice(0, QUESTIONS[i].options.length).indexOf(answer) >= 0); })) return null;
+          if (saved.submittedAt !== null && (!Number.isFinite(saved.submittedAt) || saved.submittedAt < saved.startedAt || saved.submittedAt > saved.deadline || ["manual", "timeout"].indexOf(saved.reason) === -1)) return null;
+          if (saved.submittedAt === null && saved.reason !== null) return null;
+          return saved;
+        } catch (_) { return null; }
+      }
+
+      function element(tag, className, text) {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text !== undefined) node.textContent = text;
+        return node;
+      }
+
+      function statusFor(index) {
+        if (state.answers[index] === null) return "missed";
+        return state.answers[index] === QUESTIONS[index].answer ? "correct" : "wrong";
+      }
+
+      function renderQuestions(review) {
+        const fragment = document.createDocumentFragment();
+        QUESTIONS.forEach(function (q, index) {
+          const card = element("section", "question");
+          card.id = "question-" + index;
+          card.tabIndex = -1;
+          card.setAttribute("role", "group");
+          card.setAttribute("aria-labelledby", "question-title-" + index);
+          const meta = element("div", "question-meta");
+          meta.appendChild(element("span", "question-number", "第 " + String(index + 1).padStart(2, "0") + " 题 / 20"));
+          if (review) {
+            const status = statusFor(index);
+            meta.appendChild(element("span", "result-status " + status, status === "correct" ? "答对 · 5 分" : status === "wrong" ? "答错 · 0 分" : "未答 · 0 分"));
+          } else {
+            meta.appendChild(element("span", "", "单选 · 5 分"));
+          }
+          card.appendChild(meta);
+          const title = element("h2", "question-title", q.title);
+          title.id = "question-title-" + index;
+          card.appendChild(title);
+          const options = element("div", "options");
+          q.options.forEach(function (text, optionIndex) {
+            const letter = letters[optionIndex];
+            const selected = state.answers[index] === letter;
+            const label = element("label", "option");
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.name = "question-" + index;
+            input.value = letter;
+            input.dataset.questionIndex = String(index);
+            input.checked = selected;
+            input.disabled = review;
+            label.appendChild(input);
+            const marker = element("span", "letter", letter);
+            marker.setAttribute("aria-hidden", "true");
+            label.appendChild(marker);
+            label.appendChild(element("span", "sr-only", letter + "："));
+            label.appendChild(element("span", "option-text", text));
+            if (review) {
+              label.classList.add("review");
+              if (letter === q.answer) {
+                label.classList.add("correct");
+                label.appendChild(element("span", "option-badge", selected ? "正确 · 已选" : "正确答案"));
+              } else if (selected) {
+                label.classList.add("incorrect");
+                label.appendChild(element("span", "option-badge", "你的选择"));
+              }
+            } else if (selected) {
+              label.classList.add("selected");
+            }
+            options.appendChild(label);
+          });
+          card.appendChild(options);
+          if (review) {
+            const note = element("div", "review-note");
+            const line = element("p");
+            line.appendChild(element("strong", "", "正确答案：" + q.answer));
+            line.appendChild(document.createTextNode("　你的答案：" + (state.answers[index] || "未作答")));
+            note.appendChild(line);
+            if (q.explanation) note.appendChild(element("p", "", "解析：" + q.explanation));
+            card.appendChild(note);
+          }
+          fragment.appendChild(card);
+        });
+        byId("questionForm").replaceChildren(fragment);
+      }
+
+      function buildAnswerGrid() {
+        const fragment = document.createDocumentFragment();
+        QUESTIONS.forEach(function (_, index) {
+          const button = element("button", "number-button", String(index + 1).padStart(2, "0"));
+          button.type = "button";
+          button.dataset.index = String(index);
+          button.addEventListener("click", function () {
+            if (!state || (state.submittedAt === null && !checkDeadline())) return;
+            const question = byId("question-" + index);
+            question.focus({ preventScroll: true });
+            question.scrollIntoView({ behavior: "auto", block: "start" });
+          });
+          fragment.appendChild(button);
+        });
+        byId("answerGrid").replaceChildren(fragment);
+      }
+
+      function updateProgress(review) {
+        const count = state.answers.filter(function (answer) { return answer !== null; }).length;
+        byId("answeredCount").textContent = count + " / 20";
+        byId("footerCount").textContent = String(count);
+        byId("submitHint").textContent = count === 20 ? "全部答完，可以提交试卷" : "还有 " + (20 - count) + " 题未答，未答题得 0 分";
+        byId("progressFill").style.width = (count / QUESTIONS.length * 100) + "%";
+        byId("progress").setAttribute("aria-valuenow", String(count));
+        Array.from(byId("answerGrid").children).forEach(function (button, index) {
+          const status = review ? statusFor(index) : state.answers[index] !== null ? "answered" : "";
+          button.className = "number-button" + (status ? " " + status : "");
+          const description = review ? { correct: "答对", wrong: "答错", missed: "未答" }[status] : status ? "已答" : "未答";
+          button.setAttribute("aria-label", "第 " + (index + 1) + " 题，" + description);
+        });
+      }
+
+      function paintTimer(milliseconds) {
+        byId("timer").textContent = formatTime(milliseconds);
+        byId("timer").setAttribute("aria-label", "剩余时间 " + formatTime(milliseconds));
+        byId("clock").classList.toggle("urgent", milliseconds <= 5 * 60 * 1000);
+      }
+
+      function showExam() {
+        byId("intro").hidden = true;
+        byId("exam").hidden = false;
+        byId("examHeading").hidden = false;
+        byId("examDemo").hidden = !EXAM_CONFIG.isDemo;
+        byId("resultPanel").hidden = true;
+        byId("reviewHeading").hidden = true;
+        byId("submitBar").hidden = false;
+        document.body.classList.add("in-progress");
+        byId("examCandidate").textContent = "考生：" + state.studentName;
+        byId("draftStatus").textContent = state.token ? "答题进度已保存" : "";
+        byId("legend").innerHTML = '<span><i class="done"></i>已答</span><span><i></i>未答</span>';
+        byId("answerDetails").open = !window.matchMedia("(max-width: 760px)").matches;
+        renderQuestions(false);
+        updateProgress(false);
+      }
+
+      function showResults(moveFocus) {
+        clearInterval(intervalId);
+        intervalId = null;
+        byId("intro").hidden = true;
+        byId("exam").hidden = false;
+        byId("examHeading").hidden = true;
+        byId("examDemo").hidden = true;
+        byId("submitBar").hidden = true;
+        byId("resultPanel").hidden = false;
+        byId("reviewHeading").hidden = false;
+        document.body.classList.remove("in-progress");
+        byId("resultCandidate").textContent = "考生：" + state.studentName;
+        const correct = QUESTIONS.filter(function (_, i) { return statusFor(i) === "correct"; }).length;
+        const missed = state.answers.filter(function (answer) { return answer === null; }).length;
+        byId("score").textContent = String(correct * POINTS_PER_QUESTION);
+        byId("correctCount").textContent = correct + " 题";
+        byId("wrongCount").textContent = (QUESTIONS.length - correct - missed) + " 题";
+        byId("missedCount").textContent = missed + " 题";
+        byId("elapsedTime").textContent = formatTime(state.submittedAt - state.startedAt);
+        byId("resultMessage").textContent = state.reason === "timeout" ? "30 分钟已到，作答已结束。" : "作答已结束，答案已锁定。";
+        byId("syncNote").classList.remove("failed");
+        byId("syncMessage").textContent = state.uploaded ? "成绩已保存到管理后台。考试编号：" + state.attemptId : state.token ? "正在上传成绩，请保持页面打开。" : "本次为本机测试，成绩未上传。";
+        byId("retryUploadButton").hidden = true;
+        byId("retryButton").disabled = !!state.token && !state.uploaded;
+        paintTimer(state.deadline - state.submittedAt);
+        byId("legend").innerHTML = '<span><i class="done"></i>答对</span><span><i class="wrong"></i>答错</span><span><i class="missed"></i>未答</span>';
+        renderQuestions(true);
+        updateProgress(true);
+        byId("announcement").textContent = "试卷已提交，得分 " + correct * POINTS_PER_QUESTION + " 分。";
+        if (moveFocus) {
+          window.scrollTo(0, 0);
+          byId("resultTitle").focus({ preventScroll: true });
+        }
+      }
+
+      function finish(reason, submittedAt) {
+        if (!state || state.submittedAt !== null) return;
+        // 截止时刻的判定也用于手动提交与选项事件，避免后台恢复时延长考试。
+        const now = submittedAt === undefined ? examNow() : submittedAt;
+        const timedOut = reason === "timeout" || now >= state.deadline;
+        state.reason = timedOut ? "timeout" : "manual";
+        state.submittedAt = timedOut ? state.deadline : Math.max(state.startedAt, now);
+        saveState();
+        showResults(true);
+        uploadResult();
+      }
+
+      function checkDeadline() {
+        if (!state || state.submittedAt !== null) return false;
+        const remaining = state.deadline - examNow();
+        paintTimer(remaining);
+        if (remaining <= 0) {
+          finish("timeout");
+          return false;
+        }
+        const minutes = Math.ceil(remaining / 60000);
+        if ((minutes === 5 || minutes === 1) && minutes !== lastAnnouncedMinute) {
+          byId("announcement").textContent = "距离考试结束还有 " + minutes + " 分钟。";
+          lastAnnouncedMinute = minutes;
+        }
+        return true;
+      }
+
+      function runTimer() {
+        clearInterval(intervalId);
+        if (checkDeadline()) intervalId = window.setInterval(checkDeadline, 250);
+      }
+
+      byId("startForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+        if (state || openingExam) return;
+        const studentName = byId("studentName").value.trim().replace(/\s+/g, " ");
+        if (!studentName || studentName.length > 40) {
+          byId("nameError").textContent = !studentName ? "请先填写姓名，再开始考试。" : "姓名不能超过 40 个字符。";
+          byId("nameError").hidden = false;
+          byId("studentName").setAttribute("aria-invalid", "true");
+          byId("studentName").focus();
+          return;
+        }
+        byId("studentName").value = studentName;
+        byId("nameError").hidden = true;
+        byId("studentName").removeAttribute("aria-invalid");
+        const clickedAt = Date.now();
+        let session = null;
+        if (EXAM_CONFIG.requireOnline) {
+          openingExam = true;
+          byId("startButton").disabled = true;
+          byId("startButton").textContent = "正在准备试卷…";
+          try {
+            const randomBytes = new Uint8Array(16);
+            crypto.getRandomValues(randomBytes);
+            randomBytes[6] = (randomBytes[6] & 15) | 64;
+            randomBytes[8] = (randomBytes[8] & 63) | 128;
+            const hex = Array.from(randomBytes, function (v) { return v.toString(16).padStart(2, "0"); }).join("");
+            const attemptId = [hex.slice(0, 8), hex.slice(8, 12), hex.slice(12, 16), hex.slice(16, 20), hex.slice(20)].join("-");
+            session = await api("start", { attemptId: attemptId, studentName: studentName, examVersion: EXAM_CONFIG.examVersion });
+            if (!session.token || !Number.isFinite(session.startedAt) || session.deadline !== session.startedAt + DURATION_MS) throw new Error("试卷信息不完整");
+          } catch (error) {
+            byId("nameError").textContent = "暂时无法开始考试：" + (error.message || "请检查网络后重试");
+            byId("nameError").hidden = false;
+            return;
+          } finally {
+            openingExam = false;
+            byId("startButton").disabled = false;
+            byId("startButton").textContent = "开始考试 →";
+          }
+        }
+        const now = session ? session.startedAt : clickedAt;
+        state = { studentName: studentName, startedAt: now, deadline: now + DURATION_MS, answers: QUESTIONS.map(function () { return null; }), submittedAt: null, reason: null, attemptId: session && session.attemptId, token: session && session.token, clockOffset: session ? session.serverNow - Date.now() : 0, sequence: 0, syncedSequence: 0, uploaded: false };
+        lastAnnouncedMinute = null;
+        saveState();
+        showExam();
+        runTimer();
+        window.scrollTo(0, 0);
+        byId("examTitle").focus({ preventScroll: true });
+      });
+
+      byId("studentName").addEventListener("input", function () {
+        byId("nameError").hidden = true;
+        byId("studentName").removeAttribute("aria-invalid");
+      });
+
+      byId("questionForm").addEventListener("submit", function (event) { event.preventDefault(); });
+      byId("questionForm").addEventListener("change", function (event) {
+        const input = event.target;
+        if (!input.matches('input[type="radio"]') || !state || !checkDeadline()) return;
+        const index = Number(input.dataset.questionIndex);
+        state.answers[index] = input.value;
+        state.sequence = (state.sequence || 0) + 1;
+        Array.from(input.closest(".options").querySelectorAll(".option")).forEach(function (label) {
+          label.classList.toggle("selected", label.querySelector("input").checked);
+        });
+        saveState();
+        updateProgress(false);
+        syncDraft();
+      });
+
+      byId("submitButton").addEventListener("click", function () { finish("manual"); });
+      byId("retryUploadButton").addEventListener("click", uploadResult);
+      window.addEventListener("online", function () { if (state && state.submittedAt !== null) uploadResult(); else syncDraft(); });
+      byId("retryButton").addEventListener("click", function () {
+        clearInterval(intervalId);
+        intervalId = null;
+        state = null;
+        byId("startForm").reset();
+        byId("nameError").hidden = true;
+        byId("studentName").removeAttribute("aria-invalid");
+        try { sessionStorage.removeItem(STORAGE_KEY); } catch (_) { /* 无存储权限时无需清除。 */ }
+        byId("exam").hidden = true;
+        byId("submitBar").hidden = true;
+        byId("intro").hidden = false;
+        byId("questionForm").replaceChildren();
+        byId("announcement").textContent = "已返回开始页面，点击开始考试后重新计时。";
+        document.body.classList.remove("in-progress");
+        paintTimer(DURATION_MS);
+        window.scrollTo(0, 0);
+        byId("studentName").focus({ preventScroll: true });
+      });
+      document.addEventListener("visibilitychange", function () { if (!document.hidden) checkDeadline(); });
+      window.addEventListener("pageshow", checkDeadline);
+      window.addEventListener("focus", checkDeadline);
+
+      try {
+        validateQuestions();
+        document.title = EXAM_CONFIG.title;
+        byId("brandName").textContent = EXAM_CONFIG.brand;
+        byId("introTitle").textContent = EXAM_CONFIG.title;
+        byId("examTitle").textContent = EXAM_CONFIG.title;
+        document.querySelector(".page-foot").textContent = EXAM_CONFIG.title;
+        document.querySelectorAll(".demo-only").forEach(function (notice) { notice.hidden = !EXAM_CONFIG.isDemo; });
+        buildAnswerGrid();
+        paintTimer(DURATION_MS);
+        state = loadState();
+        if (state && state.submittedAt !== null) {
+          showResults(false);
+          uploadResult();
+        } else if (state) {
+          showExam();
+          runTimer();
+          syncDraft();
+        }
+      } catch (error) {
+        byId("intro").hidden = true;
+        byId("exam").hidden = true;
+        byId("submitBar").hidden = true;
+        byId("errorBox").hidden = false;
+        byId("errorBox").textContent = "试卷暂时无法打开：" + error.message;
+      }
+    }());
+  </script>
+</body>
+</html>
